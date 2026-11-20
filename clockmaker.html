@@ -1,0 +1,167 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<title>The Clockmaker’s Last Star</title>
+<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@700&family=Inter:wght@400;500&display=swap" rel="stylesheet">
+<style>
+  :root {
+    --bg-night:#0B132B;
+    --candle-gold:#F4A261;
+    --parchment:#FAF3E0;
+    --lavender:#B8B8FF;
+    --text:#FAF3E0;
+    --accent:#F4A261;
+  }
+  body {
+    margin:0; padding:0; font-family:'Inter',sans-serif; background:var(--bg-night); color:var(--text);
+    overflow-x:hidden; overflow-y:auto;
+  }
+  .progress {
+    position:sticky; top:0; height:8px; width:100%; background:transparent; z-index:10;
+    display:flex; align-items:center; justify-content:center;
+  }
+  .progress canvas {width:100%; height:100%;}
+  .chapter {
+    min-height:100vh; padding:4rem 2rem; display:flex; flex-direction:column; justify-content:center; position:relative;
+  }
+  .card {
+    background:rgba(255,255,255,0.08);
+    backdrop-filter:blur(8px);
+    border:1px solid rgba(255,255,255,0.12);
+    border-radius:12px; padding:2rem; max-width:800px; margin:auto; color:var(--parchment);
+  }
+  h1, h2 {
+    font-family:'Playfair Display',serif; margin:0 0 1rem; color:var(--candle-gold);
+  }
+  .chapter img {
+    max-width:100%; border-radius:8px; box-shadow:0 4px 12px rgba(0,0,0,0.3);
+    transition:transform .3s ease, box-shadow .3s ease;
+  }
+  .chapter img:hover {transform:scale(1.02); box-shadow:0 8px 20px rgba(255,165,0,0.4);}
+  .toggle {
+    position:fixed; top:1rem; right:1rem; background:var(--candle-gold); color:#0B132B; border:none; border-radius:8px;
+    padding:0.5rem 1rem; cursor:pointer; font-weight:600; z-index:20;
+  }
+  /* Parallax layers */
+  .layer {position:fixed; top:0; left:0; width:100%; height:100%; pointer-events:none;}
+  .clouds {background:url('data:image/svg+xml;base64,PHN2ZyB3aWR0aD0iMTIwMCIgaGVpZ2h0PSI2MDAiIHZpZXdCb3g9IjAgMCAxMjAwIDYwMCIgeG1sbnM9Imh0dHA6Ly93d3cudzMu
+b3JnLzIwMDAvc3ZnIj48ZyBmaWxsPSIjZmZmIj48Y2lyY2xlIGN4PSI2MDAiIGN5PSIzMDAiIHI9IjE0MCIvPjxjaXJjbGUgY3g9IjEwMCIgY3k9IjIwMCIgcj0iODEiLz48Y2lyY2xlIGN4PSI5MDAiIGN5PSIxNTAiIHI9IjY4Ii8+PC9nPjwvc3ZnPg==') repeat-x;
+    animation:moveClouds 60s linear infinite; opacity:0.15;}
+  .moon {background:radial-gradient(circle at 30% 30%, #fff2, transparent 70%); mix-blend-mode:screen;}
+  @keyframes moveClouds {from{background-position:0 0;}to{background-position:-1200px 0;}}
+  /* Stardust particles */
+  .particles {position:fixed; inset:0; pointer-events:none;}
+  .particle {position:absolute; width:2px; height:2px; background:#fff; border-radius:50%; opacity:0.8; animation:twinkle 3s infinite ease-in-out;}
+  @keyframes twinkle {0%,100%{opacity:0.2;}50%{opacity:1;}}
+</style>
+</head>
+<body>
+<div class="layer clouds"></div>
+<div class="layer moon"></div>
+<canvas class="layer particles" id="particles"></canvas>
+<button class="toggle" id="candleToggle">Read by Candlelight</button>
+<div class="progress"><canvas id="progressCanvas"></canvas></div>
+
+<div class="chapter" id="chapter1">
+  <div class="card">
+    <h1>Chapter 1 – Aethelgard in the Clouds</h1>
+    <p>Floating above the sea of mist, the city of Aethelgard glimmers like a lantern in endless night. Its winding streets are stitched together by bridges of brass and glass, and the soft hum of clockwork gears keeps time with the wind.</p>
+    <img src="https://images.unsplash.com/photo-1502602898657-3e91760cbb34?auto=format&fit=crop&w=800&q=80" alt="Aethelgard skyline">
+  </div>
+</div>
+<div class="chapter" id="chapter2">
+  <div class="card">
+    <h2>Chapter 2 – Lyra’s Discovery</h2>
+    <p>Lyra, an eager apprentice, watches her grandfather coax a tiny, dim star from a cracked pocket watch. He does not merely mend the metal—he winds the fading light back into the heavens.</p>
+    <img src="https://images.unsplash.com/photo-1520561145152-2f67de24c4e6?auto=format&fit=crop&w=800&q=80" alt="Grandfather winding a star">
+  </div>
+</div>
+<div class="chapter" id="chapter3">
+  <div class="card">
+    <h2>Chapter 3 – The Guiding Star Fades</h2>
+    <p>When the city’s brightest guiding star dips into darkness, a chill settles over Aethelgard. The elders whisper of a prophecy: only the brave can climb the Brass Spire before first light.</p>
+    <img src="https://images.unsplash.com/photo-1529427613814-1a8f559e4b44?auto=format&fit=crop&w=800&q=80" alt="Guiding star fading">
+  </div>
+</div>
+<div class="chapter" id="chapter4">
+  <div class="card">
+    <h2>Chapter 4 – The Ascent</h2>
+    <p>Lyra straps her satchel, breathes the scented night‑air, and begins the ascent. Each step of the Brass Spire sings with ancient gears, echoing the rhythm of the city below.</p>
+    <img src="https://images.unsplash.com/photo-1559331946-a4ed5ae90636?auto=format&fit=crop&w=800&q=80" alt="Brass Spire">
+  </div>
+</div>
+<div class="chapter" id="chapter5">
+  <div class="card">
+    <h2>Chapter 5 – The Star Restored</h2>
+    <p>At the summit, Lyra finds the darkened star cradled in a brass cradle. She winds it with the ancient key her grandfather left, and golden light bursts, spilling across the clouds.</p>
+    <img src="https://images.unsplash.com/photo-1506744038136-46273834b3fb?auto=format&fit=crop&w=800&q=80" alt="Re-lit star">
+  </div>
+</div>
+
+<script>
+// ---------- Candlelight toggle ----------
+const toggle = document.getElementById('candleToggle');
+let candle = false;
+function setCandleMode(on){
+  document.documentElement.style.setProperty('--bg-night', on?'#2C221F':'#0B132B');
+  document.documentElement.style.setProperty('--candle-gold', on?'#D99B37':'#F4A261');
+  document.documentElement.style.setProperty('--parchment', on?'#FFF8E1':'#FAF3E0');
+  document.documentElement.style.setProperty('--lavender', on?'#C6B2D3':'#B8B8FF');
+  document.body.style.color = on?'#FFF8E1':'var(--text)';
+}
+toggle.addEventListener('click',()=>{candle=!candle; setCandleMode(candle); toggle.textContent=candle?'Return to Night':'Read by Candlelight';});
+
+// ---------- Scroll progress constellations ----------
+const chapters = document.querySelectorAll('.chapter');
+const canvas = document.getElementById('progressCanvas');
+const ctx = canvas.getContext('2d');
+function resize(){canvas.width=window.innerWidth;canvas.height=8;}
+window.addEventListener('resize',resize);
+resize();
+function drawProgress(){
+  const scrollY = window.scrollY;
+  const docHeight = document.body.scrollHeight - window.innerHeight;
+  const percent = scrollY / docHeight;
+  ctx.clearRect(0,0,canvas.width,canvas.height);
+  // draw constellations as circles along the line
+  const points = 12;
+  const gap = canvas.width/(points-1);
+  for(let i=0;i<points;i++){
+    const x = i*gap;
+    const radius = (i/points<=percent)?4:2;
+    ctx.beginPath();
+    ctx.arc(x,4,radius,0,Math.PI*2);
+    ctx.fillStyle = (i/points<=percent)?'var(--candle-gold)':'rgba(255,255,255,0.2)';
+    ctx.fill();
+  }
+}
+window.addEventListener('scroll',drawProgress);
+drawProgress();
+
+// ---------- Stardust particles ----------
+const particleCanvas = document.getElementById('particles');
+const pCtx = particleCanvas.getContext('2d');
+function resizeParticles(){particleCanvas.width=window.innerWidth;particleCanvas.height=window.innerHeight;}
+window.addEventListener('resize',resizeParticles);
+resizeParticles();
+const particles=[];
+for(let i=0;i<80;i++){
+  particles.push({x:Math.random()*window.innerWidth, y:Math.random()*window.innerHeight, r:Math.random()*2+1, speed:0.3+Math.random()*0.4});
+}
+function animate(){
+  pCtx.clearRect(0,0,particleCanvas.width,particleCanvas.height);
+  pCtx.fillStyle='rgba(255,255,255,0.8)';
+  particles.forEach(p=>{
+    p.y-=p.speed;
+    if(p.y<0) p.y=window.innerHeight;
+    pCtx.beginPath();
+    pCtx.arc(p.x,p.y,p.r,0,Math.PI*2);
+    pCtx.fill();
+  });
+  requestAnimationFrame(animate);
+}
+animate();
+</script>
+</body>
+</html>
